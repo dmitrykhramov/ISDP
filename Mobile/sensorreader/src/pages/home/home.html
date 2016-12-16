@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Sensor App
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row *ngFor="let row of sensors">
+            <ion-col width-50 *ngFor="let sensor of row">
+                <button ion-button (click)="viewSensor(sensor.url, sensor.timestamp)">
+                    {{sensor.name}}
+                    {{sensor.value}}
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
