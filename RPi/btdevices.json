@@ -1,0 +1,5 @@
+{
+        "device0":      {"BTaddr":"98:D3:31:FC:32:0B"},
+        "device1":      {"BTaddr":"AA:BB:CC:DD:EE:FF"},
+        "device2":      {"BTaddr":"XX:XX:XX:XX:XX:XX"}
+}
