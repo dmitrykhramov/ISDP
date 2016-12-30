@@ -14,26 +14,20 @@ export class SensorDetailPage {
     url: any;
     start: any;
     end: any;
+    labelStep: number;
 
     constructor(public nav: NavController, public params: NavParams, public dataService: Data) {
 
         this.url = this.params.get('url');
-        this.start = this.params.get('start');
         this.end = this.params.get('end');
+        this.getDataForGraph(24);
 
-        this.dataService.getSensorValues(this.url, this.start, this.end).subscribe(data => {
-
-            let graphData = this.createArrayOfLabelValues(data);
-            console.log(graphData);
-            this.drawTheChart(graphData);
-
-        }, (err) => {
-            console.log(err);
-        });
     }
 
 
     drawTheChart(values: any) {
+
+        let step = this.labelStep;
 
         FusionCharts.ready(function() {
             var sensorChart = new FusionCharts({
@@ -68,7 +62,8 @@ export class SensorDetailPage {
                         "toolTipBgColor": "#000000",
                         "toolTipBgAlpha": "80",
                         "toolTipBorderRadius": "2",
-                        "toolTipPadding": "5"
+                        "toolTipPadding": "5",
+                        "labelStep": step
                     },
 
                     "data": values
@@ -78,13 +73,22 @@ export class SensorDetailPage {
 
     }
 
-    createArrayOfLabelValues(values: any) {
+    createLabelValueArray(values: any, time: number) {
+
+        let length = values.length;
+        this.labelStep = Math.floor(length / time);
 
         let dataArray = [];
+        let tempLabel;
 
-        for(let i = values.length - 1; i >= 0; i-- ) {
+        for(let i = length - 1; i >= 0; i-- ) {
+            if (time === 24) {
+                tempLabel = new Date(values[i].timestamp).getHours().toString();
+            } else {
+                tempLabel = new Date(values[i].timestamp).getDate().toString();
+            }
             dataArray.push({
-                "label": new Date(values[i].timestamp).getHours().toString(),
+                "label": tempLabel,
                 "value": values[i].value
             });
         }
@@ -92,6 +96,33 @@ export class SensorDetailPage {
         return dataArray;
     }
 
+    getDataForGraph(time: number) {
+
+        let date = new Date(this.end);
+
+        if (time === 24) {
+            date.setDate(date.getDate() - 1);
+            console.log('day data');
+        } else if (time === 7) {
+            date.setDate(date.getDate() - 8);
+            console.log('week data');
+        } else if (time === 30) {
+            date.setDate(date.getDate() - 31);
+            console.log('month data');
+        }
+
+        this.start = date.getTime();
+
+        this.dataService.getSensorValues(this.url, this.start, this.end).subscribe(data => {
+
+            let graphData = this.createLabelValueArray(data, time);
+            this.drawTheChart(graphData);
+
+        }, (err) => {
+            console.log(err);
+        });
+
+    }
 
 
 }

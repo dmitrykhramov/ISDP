@@ -52,12 +52,8 @@ export class HomePage {
 
     viewSensor(sensorUrl, timestampEnd) {
 
-        var date = new Date(timestampEnd);
-        date.setDate(date.getDate() - 1);
-        let timestampStart = date.getTime();
         this.nav.push(SensorDetailPage, {
             url: sensorUrl,
-            start: timestampStart,
             end: timestampEnd
         });
     }

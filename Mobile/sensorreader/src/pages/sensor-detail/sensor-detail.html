@@ -9,6 +9,18 @@
 
 <ion-content padding>
 
+    <button ion-button (click)="getDataForGraph(24)">
+        Last day
+    </button>
+
+    <button ion-button (click)="getDataForGraph(7)">
+        Last week
+    </button>
+
+    <button ion-button (click)="getDataForGraph(30)">
+        Last month
+    </button>
+
     <div id="chart-container"></div>
 
 </ion-content>
