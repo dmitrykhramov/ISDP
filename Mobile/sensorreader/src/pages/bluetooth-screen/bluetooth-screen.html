@@ -1,0 +1,26 @@
+<!--
+  Generated template for the BluetoothScreen page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>bluetoothScreen</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item *ngFor="let device of devices">
+      <button ion-button (click)="connectDevice(device.id)">
+        {{ device.name }}
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

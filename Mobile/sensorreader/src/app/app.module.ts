@@ -4,12 +4,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {SensorDetailPage} from "../pages/sensor-detail/sensor-detail";
 import {Data} from "../providers/data";
+import {BluetoothScreenPage} from "../pages/bluetooth-screen/bluetooth-screen";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    SensorDetailPage
+    SensorDetailPage,
+    BluetoothScreenPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -18,7 +20,8 @@ import {Data} from "../providers/data";
   entryComponents: [
     MyApp,
     HomePage,
-    SensorDetailPage
+    SensorDetailPage,
+    BluetoothScreenPage
   ],
   providers: [Data]
 })

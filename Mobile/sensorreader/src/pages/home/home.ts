@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {Data} from "../../providers/data";
 import {SensorDetailPage} from "../sensor-detail/sensor-detail";
+import {BluetoothScreenPage} from "../bluetooth-screen/bluetooth-screen";
 
 @Component({
   selector: 'page-home',
@@ -56,6 +57,10 @@ export class HomePage {
             url: sensorUrl,
             end: timestampEnd
         });
+    }
+
+    openBTPage() {
+        this.nav.push(BluetoothScreenPage);
     }
 
 }
