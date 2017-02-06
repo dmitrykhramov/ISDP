@@ -32,29 +32,27 @@ export class BluetoothScreenPage {
   }
 
   connectDevice(id) {
-    // BluetoothSerial.connect("0C:E7:25:99:49:F6").subscribe((data) => {
-    //   console.log(data);
-    // })
-      BluetoothSerial.isConnected().then(() => {
-          console.log("connected");
-      }, () => {
-          console.log("disconnected");
-      });
-
-
 
       BluetoothSerial.connect(id).subscribe(() => {
-          console.log("success");
+          console.log("Connect success");
+
+          BluetoothSerial.isConnected().then(() => {
+
+              BluetoothSerial.write("hello world").then(() => {
+                  console.log("sent");
+                  });
+
+              BluetoothSerial.subscribe("}").subscribe((data) => {
+                  console.log(data);
+                  let temp = JSON.parse(data);
+                  console.log(temp);
+              });
+
+          });
+
       }, () => {
-          console.log("fail");
+          console.log("Connect fail");
       });
-
-
-
-    // BluetoothSerial.isConnected().then((res) => {
-    //   console.log("Device is already connected");
-    //   console.log(res);
-    // });
 
   }
 

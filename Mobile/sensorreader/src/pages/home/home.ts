@@ -13,6 +13,8 @@ export class HomePage {
 
     sensors: any = [];
 
+
+
     constructor(public nav: NavController, public dataService: Data, public platform: Platform) {
         this.platform.ready().then(() => {
             this.dataService.getLastValues().subscribe(data => {
@@ -28,7 +30,8 @@ export class HomePage {
                                 name: data[i].name,
                                 value: data[i].last_value.value,
                                 url: data[i].values_url,
-                                timestamp: data[i].last_value.timestamp
+                                timestamp: data[i].last_value.timestamp,
+                                color: this.defineColor(data[i].name, data[i].last_value.value)
                             }
                         }
 
@@ -37,7 +40,8 @@ export class HomePage {
                                 name: data[i+1].name,
                                 value: data[i+1].last_value.value,
                                 url: data[i+1].values_url,
-                                timestamp: data[i+1].last_value.timestamp
+                                timestamp: data[i+1].last_value.timestamp,
+                                color: this.defineColor(data[i+1].name, data[i+1].last_value.value)
                             }
                         }
 
@@ -48,7 +52,21 @@ export class HomePage {
                     console.log(err);
             });
 
+
+
         });
+
+
+    }
+
+    ionViewDidLoad() {
+        console.log(this.sensors);
+        let tempStr = '{"name" : "CO2", "value" : "124"}';
+        let jsonObj = JSON.parse(tempStr);
+        console.log(jsonObj);
+
+        // pythonDictionary = {'name':'Bob', 'age':44, 'isEmployed':True}
+        // dictionaryToJson = json.dumps(pythonDictionary)
     }
 
     viewSensor(sensorUrl, timestampEnd) {
@@ -61,6 +79,14 @@ export class HomePage {
 
     openBTPage() {
         this.nav.push(BluetoothScreenPage);
+    }
+
+    defineColor(name, value) {
+        if (name === "Humidity" && value > 0) {
+            return "red";
+        } else {
+            return "green";
+        }
     }
 
 }
