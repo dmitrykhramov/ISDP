@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>{{name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="backToRoot()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding="true" class="bg">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div id="chart-container" class="padded"></div>
+  <ion-segment padding>
+    <ion-segment-button value="day" (click)="getDataForGraph(24)">
+      Day
+    </ion-segment-button>
+    <ion-segment-button value="week" (click)="getDataForGraph(7)">
+      Week
+    </ion-segment-button>
+    <ion-segment-button value="month" (click)="getDataForGraph(30)">
+      Month
+    </ion-segment-button>
+  </ion-segment>
+
+
+</ion-content>

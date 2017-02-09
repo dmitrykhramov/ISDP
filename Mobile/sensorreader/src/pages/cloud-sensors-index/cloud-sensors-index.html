@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center="true">
+      Dashboard
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="backToRoot()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!--<ion-card no-padding="true">-->
+  <!--<ion-card-header><p class="unit">Overall condition</p></ion-card-header>-->
+  <!--<ion-card-content>-->
+  <!--<p class="value">Comfortable</p>-->
+  <!--</ion-card-content>-->
+  <!--</ion-card>-->
+  <ion-grid>
+    <ion-row width-100>
+      <div class="card">
+        <div class="sensor-name">Overall Condition</div>
+        <div class="white value">Comfortable</div>
+      </div>
+    </ion-row>
+    <ion-row *ngFor="let row of sensors; let i='index'">
+      <ion-col width-50 text-center="true" *ngFor="let sensor of row; let j='index'">
+        <div class="card">
+          <div class="white value padded" (click)="viewSensor(sensor.url, sensor.timestamp, sensor.name, sensor.id)">
+            <ion-icon name="{{icons[i][j]}}" class="ic"></ion-icon><span>{{sensor.value}}</span><span class="unit">{{units[i][j]}}</span>
+          </div>
+          <div [style.background]="sensor.color" class="sensor-name">
+            {{sensor.name}}
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
