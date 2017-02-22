@@ -7,25 +7,40 @@
 <ion-content class="tutorial-page">
 
   <ion-slides pager>
-    <ion-slide *ngFor="let slide of slides">
+
+    <ion-slide>
       <ion-toolbar>
         <ion-buttons end>
-          <button ion-button color="primary" (click)="pushPage()">Skip</button>
+          <button ion-button color="primary" (click)="makeRoot()">Skip</button>
         </ion-buttons>
       </ion-toolbar>
-      <img [src]="slide.image" class="slide-image"/>
-      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
-      <p [innerHTML]="slide.description"></p>
+      <img src="assets/img/sensor.png" class="slide-image"/>
+      <h2 class="slide-title">Welcome to MakesSense!</h2>
+      <p>The <b>MakesSense App</b> enables users to easily inspect different aspects of indoor air quality.</p>
     </ion-slide>
+
+    <ion-slide>
+      <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button color="primary" (click)="makeRoot()">Skip</button>
+        </ion-buttons>
+      </ion-toolbar>
+      <img src="assets/img/hand.png" class="slide-image"/>
+      <h2 class="slide-title">Who get credits?</h2>
+      <p><b>MakesSense App</b> is a part of International Sensor Development Project which is the result of cooperation between
+        <a href="javascript:void(0)" (click)="showAlert()"><b>Helsinki Metropolia AMK</b></a> and <b>Osnabrück Hochschule</b>.</p>
+    </ion-slide>
+
     <ion-slide>
       <ion-toolbar>
       </ion-toolbar>
-      <img src="../../assets/img/wand.png" class="slide-image"/>
+      <img src="assets/img/wand.png" class="slide-image"/>
       <h2 class="slide-title">Ready to Play?</h2>
-      <button ion-button large clear icon-right color="primary" (click)="pushPage()">
+      <button ion-button large clear icon-right color="primary" (click)="makeRoot()">
         Continue
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-slide>
+
   </ion-slides>
 </ion-content>

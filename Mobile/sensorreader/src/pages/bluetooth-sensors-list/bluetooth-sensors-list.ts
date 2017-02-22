@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, LoadingController} from 'ionic-angular';
 import {BluetoothSerial} from "ionic-native";
 
 @Component({
@@ -9,10 +9,11 @@ import {BluetoothSerial} from "ionic-native";
 export class BluetoothSensorsListPage {
 
   sensors: any = [];
-  units: any = ['°C', '%', 'db', 'Hz'];
+  units: any = ['°C', '%', 'hPa', 'Hz'];
   icons: any = ['thermometer', 'water', 'speedometer', 'megaphone'];
+  loader;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
     this.loadDataFromRpi();
   }
 
@@ -22,6 +23,7 @@ export class BluetoothSensorsListPage {
 
       BluetoothSerial.write("GET_DATA").then(() => {
         console.log("request_sent");
+        this.sensors = [];
 
         BluetoothSerial.subscribe("}").subscribe((data) => {
           console.log(data);
@@ -38,5 +40,16 @@ export class BluetoothSensorsListPage {
 
     });
   }
+
+  // presentLoading() {
+  //   this.loader = this.loadingCtrl.create({
+  //     content: "Please wait..."
+  //   });
+  //   this.loader.present();
+  // }
+  //
+  // loadingDismiss() {
+  //   this.loader.dismiss();
+  // }
 
 }

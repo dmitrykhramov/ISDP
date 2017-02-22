@@ -9,7 +9,7 @@
 
 <ion-content padding class="vertical-align-content" text-center="true">
   <ion-grid>
-    <ion-row class="center"><img src="../assets/img/sensor.png" width='165px' alt="sensor icon"></ion-row>
+    <ion-row class="center"><img src="assets/img/sensor.png" width='165px' alt="sensor icon"></ion-row>
     <ion-row>
       <p class="center padded">Choose connection type</p>
     </ion-row>
@@ -22,7 +22,7 @@
           <ion-icon name="hammer"></ion-icon>
         </ion-segment-button>
         <ion-segment-button value="bluetooth">
-          <ion-icon name="bluetooth"></ion-icon>
+          <ion-icon name="bluetooth" (click)="pushBluetooth()"></ion-icon>
         </ion-segment-button>
       </ion-segment>
     </ion-row>

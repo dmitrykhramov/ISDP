@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>bluetooth-sensors-list</ion-title>
+    <ion-title>Sensors</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,9 +9,15 @@
 
 <ion-content padding>
 
+  <ion-list>
+    <ion-item *ngFor="let sensor of sensors; let i = index">
+      <ion-icon name={{icons[i]}} class="ic"></ion-icon>{{sensor.name}}<ion-note item-right>{{sensor.value}}{{units[i]}}</ion-note>
+    </ion-item>
+  </ion-list>
 
 
-  <button ion-button (click)="getData()">
+
+  <button ion-button (click)="loadDataFromRpi()">
     Get data
   </button>
 

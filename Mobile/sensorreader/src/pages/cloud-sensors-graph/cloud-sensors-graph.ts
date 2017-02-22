@@ -22,6 +22,7 @@ export class CloudSensorsGraphPage {
   mean:any;
   min:any;
   max:any;
+  unit: any;
 
   constructor(public nav: NavController, public params: NavParams, public dataService: Data, public loadingCtrl: LoadingController) {
     this.presentLoading();
@@ -29,6 +30,7 @@ export class CloudSensorsGraphPage {
     this.id = this.params.get('id');
     this.end = this.params.get('end');
     this.name = this.params.get('name');
+    this.unit = this.getUnit(this.name);
     this.getDataForGraph(24);
   }
 
@@ -69,14 +71,17 @@ export class CloudSensorsGraphPage {
             //"usePlotGradientColor": "1",
             //Setting the gradient formation color
             //"plotGradientColor": "#1aaf5d",
+            "anchorAlpha": "0",
             "showXAxisLine": "1",
             "axisLineAlpha": "25",
             "divLineAlpha": "10",
-            "showValues": "1",
+            "showValues": "0",
             "showAlternateHGridColor": "0",
             "captionFontSize": "16",
             "subcaptionFontSize": "14",
             "subcaptionFontBold": "0",
+            "setAdaptiveYMin": "1",
+            "setAdaptiveYMax": "1",
             "toolTipColor": "#ffffff",
             "toolTipBorderThickness": "0",
             "toolTipBgColor": "#000000",
@@ -148,11 +153,28 @@ export class CloudSensorsGraphPage {
     });
 
     this.dataService.getStatistics(this.id, this.start, this.end).subscribe(data => {
-      this.mean = data.mean;
+      this.mean = Math.round(data.mean*100)/100;
       this.max = data.max;
       this.min = data.min;
     });
 
+  }
+
+  getUnit(name: any) {
+    console.log("Defining units");
+    if (name == 'Humidity') {
+      console.log(this.unit);
+      return '%';
+    }
+    else if (name == 'Temperature') {
+      return '°C';
+    }
+    else if (name == 'Pressure') {
+      return 'hPa';
+    }
+    else if (name == 'Loudness') {
+      return 'Hz';
+    }
   }
 
   backToRoot(){

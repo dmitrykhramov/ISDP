@@ -13,10 +13,11 @@
 
 
 <ion-content no-padding="true" class="bg">
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div id="chart-container" class="padded"></div>
+
   <ion-segment padding>
     <ion-segment-button value="day" (click)="getDataForGraph(24)">
       Day
@@ -29,5 +30,14 @@
     </ion-segment-button>
   </ion-segment>
 
+  <div id="chart-container" class="padded"></div>
+
+  <ion-grid padding text-center>
+    <ion-row>
+      <ion-col width-33><p class="stats">Minimum</p><h3 class="values">{{min}}{{unit}}</h3></ion-col>
+      <ion-col width-33><p class="stats">Mean</p><h3 class="values">{{mean}}{{unit}}</h3></ion-col>
+      <ion-col width-33><p class="stats">Maximum</p><h3 class="values">{{max}}{{unit}}</h3></ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

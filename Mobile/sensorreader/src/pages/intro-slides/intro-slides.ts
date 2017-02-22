@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, AlertController} from 'ionic-angular';
 import {HomePage} from "../home/home";
 
 @Component({
@@ -8,28 +8,25 @@ import {HomePage} from "../home/home";
 })
 export class IntroSlidesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  slides = [
-    {
-      title: "Welcome to MakesSense!",
-      description: "The <b>MakesSense App</b> enables users to easily inspect different aspects of indoor air quality.",
-      image: "../../assets/img/sensor.png",
-    },
-    {
-      title: "Who get credits?",
-      description: "<b>MakesSense App</b> is a part of International Sensor Development Project which is the result" +
-      "of cooperation between Helsinki Metropolia AMK and Osnabrück Hochschule." +
-      "<p>IT team:</p><p>Dmitry Khramov<br>Timofeeva Polina<br> Kai Kukasch</p>",
-      image: "../../assets/img/hand.png",
-    }
-  ];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {}
 
   pushPage(){
-    // push another page on to the navigation stack
-    // causing the nav controller to transition to the new page
-    // optional data can also be passed to the pushed page.
     this.navCtrl.push(HomePage);
+  }
+
+  makeRoot(){
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  showAlert(){
+    let alert = this.alertCtrl.create({
+      message: '<h4>IT Team</h4><p>Polina Timofeeva</p> <p>Dmitry Khramov</p> <p>Kai Kukasch</p><br>' +
+      '<h4>Electronics Team</h4><p>Shazam Kasher</p><p>Huynh Vo</p><p>Thales Mendes</p><p>Le Thanh Thi</p><br>' +
+      '<h4>Secretary</h4> <p>Andra Corcachi</p><br>' +
+      '<h4>Teachers</h4><p>Antti Piironen</p><p>Matti Fischer</p>',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

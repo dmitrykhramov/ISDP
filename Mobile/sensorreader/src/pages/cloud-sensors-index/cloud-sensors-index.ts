@@ -11,7 +11,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class CloudSensorsIndexPage {
 
   sensors: any = [];
-  units: any = [['°C', '%'], ['db', 'Hz']];
+  units: any = [['°C', '%'], ['hPa', 'Hz']];
   gradient: any;
   icons: any = [['thermometer', 'water'],['speedometer', 'megaphone']];
   loader: any;
@@ -99,18 +99,14 @@ export class CloudSensorsIndexPage {
   }
 
   defineColor(name, value) {
-    if (name === "Humidity" && value > 0) {
-      return "#387ef5";
+    if ((value)%2 ==0) {
+      return "red";
     } else {
-      //return this.gradient;
       return "#387ef5";
     }
   }
 
   backToRoot(){
-    // push another page on to the navigation stack
-    // causing the nav controller to transition to the new page
-    // optional data can also be passed to the pushed page.
     this.nav.popToRoot();
   }
 

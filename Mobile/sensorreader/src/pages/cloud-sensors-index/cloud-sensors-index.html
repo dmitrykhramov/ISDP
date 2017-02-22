@@ -15,19 +15,8 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <!--<ion-card no-padding="true">-->
-  <!--<ion-card-header><p class="unit">Overall condition</p></ion-card-header>-->
-  <!--<ion-card-content>-->
-  <!--<p class="value">Comfortable</p>-->
-  <!--</ion-card-content>-->
-  <!--</ion-card>-->
+
   <ion-grid>
-    <ion-row width-100>
-      <div class="card">
-        <div class="sensor-name">Overall Condition</div>
-        <div class="white value">Comfortable</div>
-      </div>
-    </ion-row>
     <ion-row *ngFor="let row of sensors; let i='index'">
       <ion-col width-50 text-center="true" *ngFor="let sensor of row; let j='index'">
         <div class="card">
@@ -42,3 +31,4 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
