@@ -20,6 +20,7 @@ export class BluetoothDevicesListPage {
 
   }
 
+  // Lists all avaliable devices for Bluetooth connection
   getAllBluetoothDevices(){
 
     BluetoothSerial.isEnabled().then(()=> {
@@ -31,6 +32,7 @@ export class BluetoothDevicesListPage {
     });
   }
 
+  // Connects to the choosen device and redirects to the list of sensors page
   connectDevice(id) {
 
     BluetoothSerial.connect(id).subscribe(() => {

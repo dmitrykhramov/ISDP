@@ -11,60 +11,67 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class CloudSensorsIndexPage {
 
   sensors: any = [];
-  units: any = [['°C', '%'], ['hPa', 'Hz']];
+  units: any = [['ppm', 'ppm'], ['ppm', 'ppm'], ['ppm', '°C'], ['%', 'hPa'], ['dB']];
   gradient: any;
-  icons: any = [['thermometer', 'water'],['speedometer', 'megaphone']];
+  icons: any = [['cloudy', 'analytics'], ['flame', 'cloud-outline'], ['cloud', 'thermometer'], ['water', 'speedometer'],['megaphone']];
   loader: any;
 
 
   constructor(public nav: NavController, public dataService: Data, public platform: Platform, sanitizer: DomSanitizer, public loadingCtrl: LoadingController) {
 
-    this.presentLoading();
     this.gradient = sanitizer.bypassSecurityTrustStyle("linear-gradient(to bottom, #ffd200, #f7971e 100%)");
 
     this.platform.ready().then(() => {
-      this.dataService.getLastValues().subscribe(data => {
+      this.loadData();
+    });
+  }
 
-        let rowNum = 0;
+  // Loads data and put it into the array sensors
+  loadData() {
 
-        for (let i = 0; i < data.length; i+=2) {
-          this.sensors[rowNum] = Array(2);
+    this.sensors = [];
 
-          if (data[i]) {
+    this.presentLoading();
 
-            this.sensors[rowNum][0] = {
-              name: data[i].name,
-              id: data[i].id,
-              value: data[i].last_value.value,
-              url: data[i].values_url,
-              timestamp: data[i].last_value.timestamp,
-              color: this.defineColor(data[i].name, data[i].last_value.value)
-            }
+    this.dataService.getLastValues().subscribe(data => {
+
+      let rowNum = 0;
+
+      for (let i = 0; i < data.length; i+=2) {
+        this.sensors[rowNum] = Array(2);
+
+        if (data[i]) {
+
+          this.sensors[rowNum][0] = {
+            name: data[i].name,
+            id: data[i].id,
+            value: data[i].last_value.value,
+            url: data[i].values_url,
+            timestamp: data[i].last_value.timestamp,
+            color: this.defineColor(data[i].name, data[i].last_value.value)
           }
-
-          if (data[i+1]) {
-            this.sensors[rowNum][1] = {
-              name: data[i+1].name,
-              id: data[i+1].id,
-              value: data[i+1].last_value.value,
-              url: data[i+1].values_url,
-              timestamp: data[i+1].last_value.timestamp,
-              color: this.defineColor(data[i+1].name, data[i+1].last_value.value)
-            }
-          }
-
-          rowNum++;
         }
 
-      }, (err) => {
-        console.log(err);
-      });
+        if (data[i+1]) {
+          this.sensors[rowNum][1] = {
+            name: data[i+1].name,
+            id: data[i+1].id,
+            value: data[i+1].last_value.value,
+            url: data[i+1].values_url,
+            timestamp: data[i+1].last_value.timestamp,
+            color: this.defineColor(data[i+1].name, data[i+1].last_value.value)
+          }
+        }
 
-      this.loadingDismiss();
+        rowNum++;
+      }
 
+    }, (err) => {
+      console.log(err);
     });
 
 
+    this.loadingDismiss();
   }
 
   presentLoading() {
@@ -78,16 +85,7 @@ export class CloudSensorsIndexPage {
     this.loader.dismiss();
   }
 
-  ionViewDidLoad() {
-    // console.log(this.sensors);
-    let tempStr = '{"CO2" : "124", "O2" : "135"}';
-    let jsonObj = JSON.parse(tempStr);
-    let keyes = Object.keys(jsonObj);
-    console.log(jsonObj);
-    console.log(keyes);
-    console.log(jsonObj[keyes[0]]);
-  }
-
+  // Redirects to the page with the graphic for the sensor
   viewSensor(sensorUrl, timestampEnd, sensorName, id) {
 
     this.nav.push(CloudSensorsGraphPage, {
@@ -111,12 +109,15 @@ export class CloudSensorsIndexPage {
   }
 
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
+    this.loadData();
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
+  }
+
+  roundValue(value) {
+    return Math.round(value);
   }
 
 }

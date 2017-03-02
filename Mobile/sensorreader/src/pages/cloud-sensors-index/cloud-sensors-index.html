@@ -21,7 +21,7 @@
       <ion-col width-50 text-center="true" *ngFor="let sensor of row; let j='index'">
         <div class="card">
           <div class="white value padded" (click)="viewSensor(sensor.url, sensor.timestamp, sensor.name, sensor.id)">
-            <ion-icon name="{{icons[i][j]}}" class="ic"></ion-icon><span>{{sensor.value}}</span><span class="unit">{{units[i][j]}}</span>
+            <ion-icon name="{{icons[i][j]}}" class="ic"></ion-icon><span [innerHTML]="roundValue(sensor.value)"></span><span class="unit">{{units[i][j]}}</span>
           </div>
           <div [style.background]="sensor.color" class="sensor-name">
             {{sensor.name}}

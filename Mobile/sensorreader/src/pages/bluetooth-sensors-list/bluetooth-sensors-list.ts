@@ -9,7 +9,7 @@ import {BluetoothSerial} from "ionic-native";
 export class BluetoothSensorsListPage {
 
   sensors: any = [];
-  units: any = ['°C', '%', 'hPa', 'Hz'];
+  units: any = ['°C', '%', 'hPa', 'dB'];
   icons: any = ['thermometer', 'water', 'speedometer', 'megaphone'];
   loader;
 
@@ -17,6 +17,7 @@ export class BluetoothSensorsListPage {
     this.loadDataFromRpi();
   }
 
+  // Sends command to the rPI to get the data from the rPi database
   loadDataFromRpi() {
 
     BluetoothSerial.isConnected().then(() => {

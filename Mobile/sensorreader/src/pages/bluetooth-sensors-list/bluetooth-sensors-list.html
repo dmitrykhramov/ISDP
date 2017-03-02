@@ -1,21 +1,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Sensors</ion-title>
+    <ion-title text-center>Sensor Values</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="backToRoot()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
-  <ion-list>
+  <ion-list class="vertical-align-content">
+    <ion-note text-justify class="padded">Last acquired values for all found sensors are shown. To see values over time connect with Wi-Fi.</ion-note>
     <ion-item *ngFor="let sensor of sensors; let i = index">
-      <ion-icon name={{icons[i]}} class="ic"></ion-icon>{{sensor.name}}<ion-note item-right>{{sensor.value}}{{units[i]}}</ion-note>
+      <ion-icon name={{icons[i]}} class="ic" item-left></ion-icon><ion-note><span class="sensor">{{sensor.name}}</span></ion-note><ion-note item-right><span class="value">{{sensor.value}}</span><span class="unit">{{units[i]}}</span></ion-note>
     </ion-item>
   </ion-list>
-
-
 
   <button ion-button (click)="loadDataFromRpi()">
     Get data

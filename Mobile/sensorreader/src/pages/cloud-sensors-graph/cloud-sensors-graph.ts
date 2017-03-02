@@ -173,21 +173,14 @@ export class CloudSensorsGraphPage {
       return 'hPa';
     }
     else if (name == 'Loudness') {
-      return 'Hz';
+      return 'dB';
+    } else {
+      return 'ppm'
     }
   }
 
   backToRoot(){
     this.nav.popToRoot();
-  }
-
-  doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
   }
 
   presentLoading() {
